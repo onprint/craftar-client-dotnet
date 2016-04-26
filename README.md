@@ -1,4 +1,4 @@
-# craftar-dotnet
+# craftar-client-dotnet
 Catchoom's CraftAR APIs implementation for .NET
 For more information on Catchoom APIs: [Catchoom Documentation](http://catchoom.com/documentation)
 
@@ -8,13 +8,13 @@ Here is what it can do for you.
 
 ### Items
 #### Create item
-Create a new item, with a name given in parameter and the default collection Id from configuration.
+Create a new item, with a ItemRequest given in parameter.If no collection Id is given, it will use the default collection Id in configuration.
 #### Delete item
 Delete the item having the id given in parameter.
 
 ### Images
 #### Create image
-Create a new image, with the image content byte array and item id given in parameter.
+Create a new image, with a ImageRequest given in parameter.
 #### Delete image
 Deletes the image having the id given in parameter.
 

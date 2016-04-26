@@ -17,8 +17,8 @@ namespace CraftAR.SDK.Dotnet.IntegrationTests
             {
                 return new CraftARConfiguration()
                 {
-                    APIKey = "0672c2bb59f783949507729ec39c93987530c55a",
-                    DefaultCollectionId = "39e13f59dced4309a9261864d37ab63f",
+                    APIKey = "Your API Key here",
+                    DefaultCollectionId = "Your default collection Id Here",
                     HostModify = @"https://my.craftar.net/api/v0",
                     HostSearch = @"https://search.craftar.net/v1"
                 };
