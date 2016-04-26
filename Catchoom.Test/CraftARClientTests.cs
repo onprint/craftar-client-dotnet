@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using CraftAR.SDK.Dotnet.CraftARClasses;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -16,8 +17,8 @@ namespace CraftAR.SDK.Dotnet.IntegrationTests
             {
                 return new CraftARConfiguration()
                 {
-                    APIKey = "YOUR API KEY",
-                    DefaultCollectionId = "YOUR DEFAULT COLLECTION ID",
+                    APIKey = "0672c2bb59f783949507729ec39c93987530c55a",
+                    DefaultCollectionId = "39e13f59dced4309a9261864d37ab63f",
                     HostModify = @"https://my.craftar.net/api/v0",
                     HostSearch = @"https://search.craftar.net/v1"
                 };
@@ -28,27 +29,27 @@ namespace CraftAR.SDK.Dotnet.IntegrationTests
         public void CreateItemTest()
         {
             var client = new CraftARClient(Configuration);
-            string result = client.PostItem("Item Test").Content.ReadAsStringAsync().Result;
-            string itemId = Convert.ToString(((dynamic)JsonConvert.DeserializeObject(result)).uuid);
 
-            Assert.IsTrue(!String.IsNullOrWhiteSpace(itemId));
+            var item = client.CreateItem(new ItemRequest()
+            {
+                name = "Item Test"
+            });
 
-            client.DeleteItem(itemId);
+            Assert.IsTrue(!String.IsNullOrWhiteSpace(item.uuid));
+
+            client.DeleteItem(item.uuid);
         }
 
         [Test()]
         public void DeleteItemTest()
         {
             var client = new CraftARClient(Configuration);
-            string result = client.PostItem("Item Test").Content.ReadAsStringAsync().Result;
-            string itemId = Convert.ToString(((dynamic)JsonConvert.DeserializeObject(result)).uuid);
-
-            if (!String.IsNullOrWhiteSpace(itemId))
+            var item = client.CreateItem(new ItemRequest()
             {
-                HttpResponseMessage response = client.DeleteItem(itemId);
+                name = "Item Test"
+            });
 
-                Assert.IsTrue(response.StatusCode == HttpStatusCode.NoContent);
-            }
+            Assert.IsTrue(client.DeleteItem(item.uuid));
         }
 
         [Test()]
@@ -56,15 +57,22 @@ namespace CraftAR.SDK.Dotnet.IntegrationTests
         {
             var client = new CraftARClient(Configuration);
             string imagePath = @"..\Debug\cloud.jpeg";
-            byte[] imageContent = File.ReadAllBytes(imagePath);
-            string result = client.PostItem("Image Test").Content.ReadAsStringAsync().Result;
-            string itemId = Convert.ToString(((dynamic)JsonConvert.DeserializeObject(result)).uuid);
+            
+            var item = client.CreateItem(new ItemRequest()
+            {
+                name = "Image Test"
+            });
 
-            HttpResponseMessage response = client.PostImage(imageContent, itemId);
+            var image = client.CreateImage(new ImageRequest()
+            {
+                content = File.ReadAllBytes(imagePath),
+                filename = "cloud.jpeg",
+                itemId = item.uuid
+            });
+            
+            Assert.IsTrue(!String.IsNullOrWhiteSpace(image.uuid));
 
-            Assert.IsTrue(response.StatusCode == HttpStatusCode.Created);
-
-            client.DeleteItem(itemId);
+            client.DeleteItem(item.uuid);
         }
 
         [Test()]
@@ -72,17 +80,22 @@ namespace CraftAR.SDK.Dotnet.IntegrationTests
         {
             var client = new CraftARClient(Configuration);
             string imagePath = @"..\Debug\water.png";
-            byte[] imageContent = File.ReadAllBytes(imagePath);
-            string itemResult = client.PostItem("Image Test").Content.ReadAsStringAsync().Result;
-            string itemId = Convert.ToString(((dynamic)JsonConvert.DeserializeObject(itemResult)).uuid);
-            string imageResult = client.PostImage(imageContent, itemId).Content.ReadAsStringAsync().Result;
-            string imageId = Convert.ToString(((dynamic)JsonConvert.DeserializeObject(imageResult)).uuid);
 
-            HttpResponseMessage response = client.DeleteImage(imageId);
+            var item = client.CreateItem(new ItemRequest()
+            {
+                name = "Image Test"
+            });
 
-            Assert.IsTrue(response.StatusCode == HttpStatusCode.NoContent);
+            var image = client.CreateImage(new ImageRequest()
+            {
+                content = File.ReadAllBytes(imagePath),
+                filename = "water.png",
+                itemId = item.uuid
+            });
+            
+            Assert.IsTrue(client.DeleteImage(image.uuid));
 
-            client.DeleteItem(itemId);
+            client.DeleteItem(image.uuid);
         }
     }
 }
