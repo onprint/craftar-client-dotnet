@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftAR.SDK.Dotnet", "Catchoom\CraftAR.SDK.Dotnet.csproj", "{05F28DE7-2FA7-47CD-A46F-88D0FD6EAB6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CraftAR.SDK.Dotnet.IntegrationTests", "Catchoom.Test\CraftAR.SDK.Dotnet.IntegrationTests.csproj", "{2FDDA27D-09B9-4925-890A-5486718E4B29}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{867C3DEB-032A-4E87-BB69-1563BCA8DB3D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05F28DE7-2FA7-47CD-A46F-88D0FD6EAB6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05F28DE7-2FA7-47CD-A46F-88D0FD6EAB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05F28DE7-2FA7-47CD-A46F-88D0FD6EAB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05F28DE7-2FA7-47CD-A46F-88D0FD6EAB6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FDDA27D-09B9-4925-890A-5486718E4B29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FDDA27D-09B9-4925-890A-5486718E4B29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FDDA27D-09B9-4925-890A-5486718E4B29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FDDA27D-09B9-4925-890A-5486718E4B29}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
