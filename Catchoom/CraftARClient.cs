@@ -2,7 +2,6 @@
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.Remoting;
 using System.Text;
 using CraftAR.SDK.Dotnet.CraftARClasses;
 using Newtonsoft.Json;
@@ -22,6 +21,7 @@ namespace CraftAR.SDK.Dotnet
         }
 
         #region Image
+
         public Image CreateImage(ImageRequest imageRequest)
         {
             if (imageRequest == null)
@@ -32,7 +32,6 @@ namespace CraftAR.SDK.Dotnet
             using (var client = new HttpClient())
             {
                 var content = new MultipartFormDataContent();
-
                 var fileContent = new ByteArrayContent(imageRequest.content);
 
                 fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
@@ -48,10 +47,12 @@ namespace CraftAR.SDK.Dotnet
                 content.Add(new StringContent(itemContent), "item");
 
                 var result = client.PostAsync(uri, content).Result;
+
                 if (result.StatusCode == HttpStatusCode.Created)
                 {
                     return JsonConvert.DeserializeObject<Image>(result.Content.ReadAsStringAsync().Result);
                 }
+
                 return null;
             }
         }
@@ -74,6 +75,7 @@ namespace CraftAR.SDK.Dotnet
         #endregion
 
         #region Item
+
         public Item CreateItem(ItemRequest itemRequest)
         {
             if (itemRequest == null)
@@ -91,14 +93,14 @@ namespace CraftAR.SDK.Dotnet
                     content = itemRequest.content
                 };
                 string uri = String.Format("{0}/item/?api_key={1}", Configuration.HostModify, Configuration.APIKey);
-
                 var content = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
-
                 var result = client.PostAsync(uri, content).Result;
+                
                 if (result.StatusCode == HttpStatusCode.Created)
                 {
                     return JsonConvert.DeserializeObject<Item>(result.Content.ReadAsStringAsync().Result);
                 }
+                
                 return null;
             }
         }
@@ -113,9 +115,11 @@ namespace CraftAR.SDK.Dotnet
             using (var client = new HttpClient())
             {
                 string uri = String.Format("{0}/item/{1}/?api_key={2}", Configuration.HostModify, itemId, Configuration.APIKey);
+
                 return client.DeleteAsync(uri).Result.StatusCode == HttpStatusCode.NoContent;
             }
         }
+
         #endregion
 
         public HttpResponseMessage SearchImage(HttpContent content)

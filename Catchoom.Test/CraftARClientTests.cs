@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Net;
-using System.Net.Http;
 using CraftAR.SDK.Dotnet.CraftARClasses;
-using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace CraftAR.SDK.Dotnet.IntegrationTests
@@ -29,7 +26,6 @@ namespace CraftAR.SDK.Dotnet.IntegrationTests
         public void CreateItemTest()
         {
             var client = new CraftARClient(Configuration);
-
             var item = client.CreateItem(new ItemRequest()
             {
                 name = "Item Test"
@@ -57,12 +53,10 @@ namespace CraftAR.SDK.Dotnet.IntegrationTests
         {
             var client = new CraftARClient(Configuration);
             string imagePath = @"..\Debug\cloud.jpeg";
-            
             var item = client.CreateItem(new ItemRequest()
             {
                 name = "Image Test"
             });
-
             var image = client.CreateImage(new ImageRequest()
             {
                 content = File.ReadAllBytes(imagePath),
@@ -80,12 +74,10 @@ namespace CraftAR.SDK.Dotnet.IntegrationTests
         {
             var client = new CraftARClient(Configuration);
             string imagePath = @"..\Debug\water.png";
-
             var item = client.CreateItem(new ItemRequest()
             {
                 name = "Image Test"
             });
-
             var image = client.CreateImage(new ImageRequest()
             {
                 content = File.ReadAllBytes(imagePath),
