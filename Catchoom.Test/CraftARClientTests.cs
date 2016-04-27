@@ -28,7 +28,7 @@ namespace CraftAR.SDK.Dotnet.IntegrationTests
             var client = new CraftARClient(Configuration);
             var item = client.CreateItem(new ItemRequest()
             {
-                name = "Item Test"
+                name = "Test Create Item"
             });
 
             Assert.IsTrue(!String.IsNullOrWhiteSpace(item.uuid));
@@ -42,7 +42,7 @@ namespace CraftAR.SDK.Dotnet.IntegrationTests
             var client = new CraftARClient(Configuration);
             var item = client.CreateItem(new ItemRequest()
             {
-                name = "Item Test"
+                name = "Test Delete Item"
             });
 
             Assert.IsTrue(client.DeleteItem(item.uuid));
@@ -55,7 +55,7 @@ namespace CraftAR.SDK.Dotnet.IntegrationTests
             string imagePath = @"..\Debug\cloud.jpeg";
             var item = client.CreateItem(new ItemRequest()
             {
-                name = "Image Test"
+                name = "Test Create Image"
             });
             var image = client.CreateImage(new ImageRequest()
             {
@@ -76,7 +76,7 @@ namespace CraftAR.SDK.Dotnet.IntegrationTests
             string imagePath = @"..\Debug\water.png";
             var item = client.CreateItem(new ItemRequest()
             {
-                name = "Image Test"
+                name = "Test Delete Image"
             });
             var image = client.CreateImage(new ImageRequest()
             {
@@ -87,7 +87,7 @@ namespace CraftAR.SDK.Dotnet.IntegrationTests
             
             Assert.IsTrue(client.DeleteImage(image.uuid));
 
-            client.DeleteItem(image.uuid);
+            client.DeleteItem(item.uuid);
         }
     }
 }
